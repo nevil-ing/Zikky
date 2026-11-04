@@ -8,6 +8,7 @@ const code_style = @import("../ui/code_style.zig");
 const picker = @import("../overlays/picker.zig");
 const TabBar = @import("tab_bar.zig").TabBar;
 const vim = @import("../vim/vim.zig");
+const VimBar = @import("../vim/vim_status.zig").VimStatus;
 const tabs = @import("tabs.zig");
 const syntax = @import("../syntax/syntax.zig");
 const FindBar = @import("find_bar.zig").FindBar;
@@ -104,6 +105,7 @@ const Container = struct {
                 .cursor_color = theme.color.primary,
             }),
             ui.when(s.find.open, .{FindBar{}}),
+            ui.when(s.settings.vim_mode, .{VimBar{}}),
         })}));
         if (!s.picker.open) if (tabs.editor(cx.window(), id)) |ce| prepare(s, cx.window(), ce, id);
     }
